@@ -1,0 +1,183 @@
+/* ---------- ریست پیش‌فرض ---------- */
+/* حذف فاصله‌های پیش‌فرض مرورگر و حساب کردن padding و border داخل عرض و ارتفاع */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------- متغیرهای رنگ (CSS variables) ---------- */
+/* رنگ‌ها یک‌جا تعریف شده‌اند تا با var(--name) در همه‌جا استفاده شوند */
+:root {
+  --bg-color: #030164;
+  --text-color: #fff;
+  --border-color: #ccc;
+  --container-bg-color: #363199;
+  --task-item-bg-color: #e8e085;
+  --checkbox-color: #2d7495;
+}
+
+/* ---------- بدنه‌ی صفحه ---------- */
+/* با flex کل محتوا را وسط صفحه (افقی و عمودی) قرار می‌دهیم */
+body {
+  background-color: var(--bg-color);
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* حذف نقطه‌های کنار آیتم‌های لیست */
+ul {
+  list-style: none;
+}
+
+/* ---------- کادر اصلی برنامه ---------- */
+.container {
+  max-width: 750px;
+  width: 80%;
+  border-radius: 10px;
+  background: var(--container-bg-color);
+  padding: 20px;
+}
+
+/* عنوان بالای صفحه */
+.container .title {
+  text-align: center;
+  font-family: "Varela Round";
+  color: var(--text-color);
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+/* ---------- بخش ورودی (اینپوت و دکمه) ---------- */
+/* اینپوت و دکمه را کنار هم و وسط‌چین می‌کند */
+.container .input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ظاهر اینپوت: outline دور آن با فاصله‌ی کم از لبه */
+.container .input-container input {
+  width: 80%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1.2rem;
+  font-family: "Varela Round", "Vazirmatn", sans-serif;
+  outline: 2px solid var(--task-item-bg-color);
+  outline-offset: 3px;
+  /* تغییر فاصله‌ی outline به‌صورت نرم انجام شود */
+  transition: outline-offset 0.5s ease;
+}
+
+/* وقتی روی اینپوت کلیک شد، outline کمی دورتر می‌شود */
+.container .input-container input:focus {
+  outline-offset: 5px;
+}
+
+/* ظاهر دکمه‌ی اضافه کردن */
+.container .input-container button {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: transform 0.2s ease;
+}
+
+/* افکت فشرده شدن دکمه هنگام کلیک */
+.container .input-container button:active {
+  transform: scale(0.95);
+}
+
+/* ---------- لیست کارها ---------- */
+/* آیتم‌ها را زیر هم با فاصله‌ی یکسان می‌چیند */
+#taskList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 2rem;
+}
+
+/* ظاهر هر کار: چک‌باکس و متن را کنار هم می‌گذارد */
+#taskList .task-item {
+  background: var(--task-item-bg-color);
+  padding: 10px;
+  border-radius: 5px;
+  font-family: "Varela Round", "Vazirmatn", sans-serif;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* برای کم‌رنگ شدن نرم هنگام حذف */
+  transition: opacity 0.5s ease;
+}
+/* این کلاس با جاوا اسکریپت اضافه می‌شود: آیتم محو می‌شود */
+/* pointer-events: none یعنی در حال محو شدن دیگر قابل کلیک نیست */
+.task-item.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- چک‌باکس سفارشی ---------- */
+/* با کلیک روی لیبل، چک‌باکس تیک می‌خورد */
+.checkbox-container {
+  cursor: pointer;
+}
+
+/* چک‌باکس اصلی مرورگر مخفی می‌شود (به جایش SVG نمایش داده می‌شود) */
+.checkbox-container input {
+  display: none;
+}
+
+/* اجازه می‌دهد خط SVG از کادرش بیرون بزند */
+.checkbox-container svg {
+  overflow: visible;
+}
+
+/* حالت عادی (تیک‌نخورده): خط دور مربع کشیده شده و انیمیشن نرم دارد */
+.checkbox-container .path {
+  fill: none;
+  stroke: var(--checkbox-color);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease;
+  stroke-dasharray: 241 9999999;
+  stroke-dashoffset: 0;
+}
+
+/* حالت تیک‌خورده: با تغییر dasharray و dashoffset شکل مربع به علامت تیک تبدیل می‌شود */
+/* سلکتور ~ یعنی svgی که بعد از input چک‌شده آمده است */
+.checkbox-container input:checked ~ svg .path {
+  stroke-dasharray: 70.5096664428711 9999999;
+  stroke-dashoffset: -262.2723388671875;
+}
+
+/* ---------- خط روی متن کار انجام‌شده ---------- */
+/* relative باعث می‌شود خط (::before) نسبت به خود متن جایگذاری شود */
+.task-text {
+  position: relative;
+}
+
+/* خط: در حالت عادی عرضش ۰ است (دیده نمی‌شود) */
+.task-text::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #000;
+  /* کشیده شدن نرم خط */
+  transition: width 0.3s ease;
+}
+
+/* اگر داخل li چک‌باکسِ تیک‌خورده وجود داشت، خط تا ۱۰۰٪ عرض متن کشیده می‌شود */
+/* :has() به ما اجازه می‌دهد از چک‌باکس به لیبل متن برسیم */
+.task-item:has(input:checked) .task-text::before {
+  width: 100%;
+}

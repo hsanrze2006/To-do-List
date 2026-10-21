@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <!-- لود کردن فونت‌ها از Google Fonts (فعلاً Varela Round در CSS استفاده شده) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Slackey&family=Varela+Round&family=Vazirmatn:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- اتصال فایل استایل -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- کادر اصلی برنامه -->
+    <div class="container">
+      <h1 class="title">Todo List</h1>
+
+      <!-- بخش ورودی: اینپوت برای نوشتن کار و دکمه برای اضافه کردن -->
+      <div class="input-container">
+        <input
+          type="text"
+          name="inputTask"
+          id="taskInput"
+          placeholder="Add a task"
+        />
+        <button id="addTaskBtn">Add Task</button>
+      </div>
+
+      <!-- لیست کارها: فعلاً خالی است و کارها با جاوا اسکریپت داخلش ساخته می‌شوند -->
+      <!-- کد زیر یک نمونه از ساختار هر کار است که برای یادآوری کامنت شده است -->
+      <ul id="taskList">
+        <!-- <li class="task-item">
+          <label class="checkbox-container">
+            <input
+              type="checkbox"
+              name="task"
+              id="task1"
+            />
+            <svg viewBox="0 0 64 64" height="1em" width="1em">
+              <path
+                d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
+                pathLength="575.0541381835938"
+                class="path"
+              ></path>
+            </svg>
+          </label>
+          <label for="task1" class="task-text">task1</label> 
+        </li> -->
+      </ul>
+    </div>
+    <!-- اتصال فایل جاوا اسکریپت (آخر body تا المنت‌ها از قبل ساخته شده باشند) -->
+    <script src="script.js"></script>
+  </body>
+</html>
